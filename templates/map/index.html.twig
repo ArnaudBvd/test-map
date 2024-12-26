@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Musées par ville
+{% endblock %}
+
+{% block body %}
+
+	<div class="user-research">
+		<form method="GET" action="{{ path('app_map') }}">
+			<label for="cityName">Nom de la ville :</label>
+			<input type="text" name="cityName" id="cityName" value="{{ app.request.query.get('cityName', 'Paris') }}" required>
+			<button type="submit">Rechercher</button>
+		</form>
+	</div>
+
+	<div class="error">
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-danger">{{ message }}</div>
+		{% endfor %}
+	</div>
+
+	<div class="map">
+		{{ render_map(map, {style: 'height: 600px; width: 700px' }) }}
+	</div>
+
+{% endblock %}
